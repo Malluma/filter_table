@@ -1,5 +1,6 @@
 # Технологии
 React, Redux, styled-components.
+
 API (backend часть проекта) находится здесь: https://github.com/Malluma/filter_table_backend.git.
 
 # Задание
