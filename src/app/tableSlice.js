@@ -3,7 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   table: [],
   sort: "DEFAULT",
-  filter: { field: "DEFAULT", fieldKey:'', type: "=", value: "" },
+  filter: { field: "DEFAULT", fieldKey: "", type: "=", value: "" },
+  totalRecordsNumber: 13,
+  pageSize: 5,
+  currentPage: 0,
 };
 
 const fieldMapping = {
@@ -23,6 +26,8 @@ export const tableSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
+      console.log('loadTableFromDB')
+      console.log(action.payload)
       state.table = [];
       const tableData = action.payload;
       tableData.forEach((item) => {
@@ -42,7 +47,6 @@ export const tableSlice = createSlice({
       state.sort = action.payload;
     },
     sortTable: (state) => {
-
       const sortField = fieldMapping[state.sort];
 
       state.table.sort((a, b) => {
@@ -56,11 +60,14 @@ export const tableSlice = createSlice({
       });
     },
     setFilter: (state, action) => {
-      const {type, value} = action.payload;
+      const { type, value } = action.payload;
       state.filter[type] = value;
-      if (type === 'field' && state.filter.field !== "DEFAULT") {
+      if (type === "field" && state.filter.field !== "DEFAULT") {
         state.filter.fieldKey = fieldMapping[value];
       }
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
     },
   },
 });
@@ -71,5 +78,6 @@ export const {
   setSortField,
   sortTable,
   setFilter,
+  setCurrentPage,
 } = tableSlice.actions;
 export default tableSlice.reducer;

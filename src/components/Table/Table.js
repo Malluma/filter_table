@@ -5,9 +5,9 @@ import { setSortField, sortTable } from "../../app/tableSlice";
 function Table(props) {
 
   const table = useSelector(state => state.table.table);
-  const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
-  const filterType = useSelector((state) => state.table.filter.type);
-  const filterValue = useSelector((state) => state.table.filter.value);
+  //const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
+  //const filterType = useSelector((state) => state.table.filter.type);
+  //const filterValue = useSelector((state) => state.table.filter.value);
   const dispatch = useDispatch();
 
   function handleSortBtnClick(field){
@@ -15,7 +15,7 @@ function Table(props) {
     dispatch(sortTable());
   }
 
-  let filteredTable = table;
+  /*let filteredTable = table;
   
   if (filterFieldKey){
     if(filterType === 'Содержит'){
@@ -31,7 +31,7 @@ function Table(props) {
     } else if(filterType === '<'){
       filteredTable = table.filter((item) => item[filterFieldKey] < filterValue)
     } 
-  }
+  }*/
   
   return (
     <StyledTable>
@@ -56,7 +56,7 @@ function Table(props) {
         </tr>
       </TableHead>
       <tbody>
-        {filteredTable.map((item) => {
+        {table.map((item) => {
           return (
             <tr key={item.id}>
               <td>{item.date}</td>

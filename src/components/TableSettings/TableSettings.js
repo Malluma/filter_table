@@ -1,17 +1,27 @@
 import { Input, Dropdown, Reference, FilterWrap, FilterField, FilterType, FilterValue, FilterLabel} from "./styles.js";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilter } from "../../app/tableSlice";
+import { setFilter} from "../../app/tableSlice";
+import Button from '../common/Button/Button';
+import { loadData } from "../../utils";
 
 function TableSettings(props) {
 
   const filterField = useSelector((state) => state.table.filter.field);
+  const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
   const filterType = useSelector((state) => state.table.filter.type);
   const filterValue = useSelector((state) => state.table.filter.value);
+  const currentPage = useSelector((state) => state.table.currentPage)
+  const pageSize = useSelector((state) => state.table.pageSize);
 
   const dispatch = useDispatch();
 
   function handleFilterChange(e, type) {
     dispatch(setFilter({ type: type, value: e.target.value }));
+  }
+
+  function handleFilterBtnClick(e, type) {
+    console.log('handleFilterBtnClick')
+    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage);
   }
 
   return (
@@ -56,6 +66,7 @@ function TableSettings(props) {
             onChange={(e) => handleFilterChange(e, "value")}
           ></Input>
         </FilterValue>
+        <Button onClick={handleFilterBtnClick}>Отфильтровать</Button>
       </FilterWrap> 
     </>
   );

@@ -1,28 +1,36 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import Table from "./components/Table/Table";
-import TableSettings from './components/TableSettings/TableSettings'
-import { TableWrap} from "./App.styles";
-import { loadTableFromDB} from "./app/tableSlice";
+import TableSettings from "./components/TableSettings/TableSettings";
+import Pagination from "./components/Pagination/Pagination";
+import { AppWrap, TableWrap } from "./App.styles";
+import { loadData } from "./utils";
 
 function App() {
-
   const dispatch = useDispatch();
+  const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
+  const filterType = useSelector((state) => state.table.filter.type);
+  const filterValue = useSelector((state) => state.table.filter.value);
+  const currentPage = useSelector((state) => state.table.currentPage);
+  const pageSize = useSelector((state) => state.table.pageSize);
 
   useEffect(() => {
-    fetch("http://localhost:3001/table", { method: "GET" })
-    .then((response) => response.json())
-    .then(json => dispatch(loadTableFromDB(json)))
-    .catch((error) => console.error("error", error));
-  }, [dispatch]);
+    console.log('useEffect')
+    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage);
+  }, []);
 
-  return <div className="App">
-    <TableWrap>
-      <TableSettings />
-      <Table />
-    </TableWrap>
-  </div>;
+  return (
+    <div className="App">
+      <AppWrap>
+        <TableSettings />
+        <TableWrap>
+          <Table />
+        </TableWrap>
+        <Pagination />
+      </AppWrap>
+    </div>
+  );
 }
 
 export default App;
