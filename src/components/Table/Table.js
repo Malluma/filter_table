@@ -1,37 +1,23 @@
 import { Table as StyledTable, TableHead, TableHeadCell, SortBtn} from "./styles.js";
 import { useDispatch, useSelector } from 'react-redux';
-import { setSortField, sortTable } from "../../app/tableSlice";
+import { setSortField } from "../../app/tableSlice";
+import { loadData } from "../../utils";
 
 function Table(props) {
 
   const table = useSelector(state => state.table.table);
-  //const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
-  //const filterType = useSelector((state) => state.table.filter.type);
-  //const filterValue = useSelector((state) => state.table.filter.value);
+  const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
+  const filterType = useSelector((state) => state.table.filter.type);
+  const filterValue = useSelector((state) => state.table.filter.value);
+  const sort = useSelector((state) => state.table.sort);
+  const currentPage = useSelector((state) => state.table.currentPage);
+  const pageSize = useSelector((state) => state.table.pageSize);
   const dispatch = useDispatch();
 
   function handleSortBtnClick(field){
     dispatch(setSortField(field));
-    dispatch(sortTable());
+    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage, field);
   }
-
-  /*let filteredTable = table;
-  
-  if (filterFieldKey){
-    if(filterType === 'Содержит'){
-      if (filterFieldKey === 'amount' || filterFieldKey === 'distance'){
-        filteredTable = table.filter((item) => item[filterFieldKey].toString().includes(filterValue))
-      } else {
-        filteredTable = table.filter((item) => item[filterFieldKey].toLowerCase().includes(filterValue.toLowerCase()))
-      }
-    } else if(filterType === '='){
-      filteredTable = table.filter((item) => item[filterFieldKey] == filterValue)
-    } else if(filterType === '>'){
-      filteredTable = table.filter((item) => item[filterFieldKey] > filterValue)
-    } else if(filterType === '<'){
-      filteredTable = table.filter((item) => item[filterFieldKey] < filterValue)
-    } 
-  }*/
   
   return (
     <StyledTable>

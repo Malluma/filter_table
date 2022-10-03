@@ -9,6 +9,7 @@ function Pagination(props) {
   const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
   const filterType = useSelector((state) => state.table.filter.type);
   const filterValue = useSelector((state) => state.table.filter.value);
+  const sort = useSelector((state) => state.table.sort);
   const currentPage = useSelector((state) => state.table.currentPage);
   const totalRecordsNumber = useSelector((state) => state.table.totalRecordsNumber);
   const pageSize = useSelector((state) => state.table.pageSize);
@@ -17,7 +18,7 @@ function Pagination(props) {
 
   function handlePageBtnClick(e, pageNumber) {
     dispatch(setCurrentPage(pageNumber));
-    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage);
+    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage, sort);
   }
   
   let pagesNumber = Math.ceil(totalRecordsNumber/pageSize);

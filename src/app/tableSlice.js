@@ -46,19 +46,6 @@ export const tableSlice = createSlice({
     setSortField: (state, action) => {
       state.sort = action.payload;
     },
-    sortTable: (state) => {
-      const sortField = fieldMapping[state.sort];
-
-      state.table.sort((a, b) => {
-        if (a[sortField] < b[sortField]) {
-          return -1;
-        } else if (a[sortField] > b[sortField]) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-    },
     setFilter: (state, action) => {
       const { type, value } = action.payload;
       state.filter[type] = value;
@@ -76,7 +63,6 @@ export const {
   loadTableFromDB,
   addTableRow,
   setSortField,
-  sortTable,
   setFilter,
   setCurrentPage,
 } = tableSlice.actions;

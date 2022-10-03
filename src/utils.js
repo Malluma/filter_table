@@ -1,6 +1,6 @@
 import { loadTableFromDB } from "./app/tableSlice";
 
-function addParams(fieldKey, type, value, pageSize, currentPage) {
+function addParams(fieldKey, type, value, pageSize, currentPage, sortField) {
   let params = "";
   const paramsArr = [];
 
@@ -9,6 +9,13 @@ function addParams(fieldKey, type, value, pageSize, currentPage) {
     name: "name_",
     amount: "amount",
     distance: "distance",
+  };
+
+  const sortFieldDBMapping = {
+    Дата: "date_",
+    Название: "name_",
+    Количество: "amount",
+    Расстояние: "distance",
   };
 
   const typeForDB = type === "Содержит" ? "LIKE" : type;
@@ -23,6 +30,11 @@ function addParams(fieldKey, type, value, pageSize, currentPage) {
     paramsArr.push({ field: "filterValue", value: value });
   }
 
+  //sort params
+  if (sortField !== "DEFAULT"){
+    paramsArr.push({ field: "sortField", value: sortFieldDBMapping[sortField] });
+  }
+  
   //pagination params
   paramsArr.push({ field: "count", value: pageSize });
   paramsArr.push({ field: "currentPage", value: currentPage });
@@ -37,19 +49,9 @@ function addParams(fieldKey, type, value, pageSize, currentPage) {
 }
 
 export function loadData(
-  dispatch,
-  fieldKey,
-  type,
-  value,
-  pageSize,
-  currentPage
-) {
+  dispatch, fieldKey, type, value, pageSize, currentPage, sortField) {
   const url = `http://localhost:3001/table${addParams(
-    fieldKey,
-    type,
-    value,
-    pageSize,
-    currentPage
+    fieldKey, type, value, pageSize, currentPage, sortField
   )}`;
 
   fetch(url, { method: "GET" })

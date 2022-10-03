@@ -12,11 +12,12 @@ function App() {
   const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
   const filterType = useSelector((state) => state.table.filter.type);
   const filterValue = useSelector((state) => state.table.filter.value);
+  const sort = useSelector((state) => state.table.sort);
   const currentPage = useSelector((state) => state.table.currentPage);
   const pageSize = useSelector((state) => state.table.pageSize);
 
   useEffect(() => {
-    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage);
+    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage, sort);
   }, []);
 
   return (

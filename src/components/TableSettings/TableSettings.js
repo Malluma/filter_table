@@ -11,6 +11,7 @@ function TableSettings(props) {
   const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
   const filterType = useSelector((state) => state.table.filter.type);
   const filterValue = useSelector((state) => state.table.filter.value);
+  const sort = useSelector((state) => state.table.sort);
   const pageSize = useSelector((state) => state.table.pageSize);
 
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function TableSettings(props) {
 
   function handleFilterBtnClick(e, type) {
     dispatch(setCurrentPage(0));
-    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, 0);
+    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, 0, sort);
   }
 
   return (
