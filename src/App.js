@@ -16,7 +16,6 @@ function App() {
   const pageSize = useSelector((state) => state.table.pageSize);
 
   useEffect(() => {
-    console.log('useEffect')
     loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage);
   }, []);
 

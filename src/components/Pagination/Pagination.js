@@ -15,7 +15,7 @@ function Pagination(props) {
 
   const dispatch = useDispatch();
 
-  function handleFilterBtnClick(e, pageNumber) {
+  function handlePageBtnClick(e, pageNumber) {
     dispatch(setCurrentPage(pageNumber));
     loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage);
   }
@@ -31,7 +31,7 @@ function Pagination(props) {
         {pages.map(((index) => {
           const pageNumber = index;
           const currentPageStyle = (pageNumber === currentPage)? true: false;
-          return <Button key={index} circle={true} current={currentPageStyle} onClick={e=>handleFilterBtnClick(e, pageNumber)}>{pageNumber+1}</Button>
+          return <Button key={index} circle={true} current={currentPageStyle} onClick={e=>handlePageBtnClick(e, pageNumber)}>{pageNumber+1}</Button>
         }))}
       </PaginationWrap> 
   );

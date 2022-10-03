@@ -6,7 +6,7 @@ const initialState = {
   filter: { field: "DEFAULT", fieldKey: "", type: "=", value: "" },
   totalRecordsNumber: 13,
   pageSize: 5,
-  currentPage: 0,
+  currentPage: 0
 };
 
 const fieldMapping = {
@@ -26,11 +26,11 @@ export const tableSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      console.log('loadTableFromDB')
-      console.log(action.payload)
       state.table = [];
-      const tableData = action.payload;
-      tableData.forEach((item) => {
+      const {data, totalCount} = action.payload;
+      state.totalRecordsNumber = totalCount;
+     
+      data.forEach((item) => {
         state.table.push({
           id: item.id,
           date: item.DateYYMMDD,

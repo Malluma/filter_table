@@ -11,7 +11,7 @@ export const Button = styled.button`
   border: none;
   border-radius: ${props => props.circle? '50%' : '22px'};
   text-decoration: none;
-  background: ${props => props.selected? primaryColorDark : primaryColor};
+  background: ${props => props.current? primaryColorDark : primaryColor};
   color: white;
   margin-right: ${props => props.circle? '1vw': '0'};
   padding: ${props => props.circle? '1em': '1vh 1.5vw 1vh 1vw'};
