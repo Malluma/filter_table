@@ -1,5 +1,5 @@
 # API
-API (backend часть проекта) находится здесь: https://github.com/Malluma/filter_table_backend.git.
+API с данными таблицы (backend часть проекта) находится здесь: https://github.com/Malluma/filter_table_backend.git.
 
 # Описание
 ![Внешний вид приложения](./forREADME/project_image.jpg)
