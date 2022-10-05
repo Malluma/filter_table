@@ -4,7 +4,7 @@ import React from "react";
 import Table from "./components/Table/Table";
 import TableSettings from "./components/TableSettings/TableSettings";
 import Pagination from "./components/Pagination/Pagination";
-import { AppWrap, TableWrap } from "./App.styles";
+import { AppWrap, TableWrap, Reference } from "./App.styles";
 import { loadData } from "./utils";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage, sort);
-  }, []);
+  }, [dispatch, filterFieldKey, filterType, filterValue, pageSize, sort, currentPage]);
 
   return (
     <div className="App">
@@ -27,6 +27,9 @@ function App() {
         <TableWrap>
           <Table />
         </TableWrap>
+        <Reference>
+        * Сортировка таблицы осуществляется по клику на заголовок колонки
+        </Reference>
         <Pagination />
       </AppWrap>
     </div>

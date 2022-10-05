@@ -11,13 +11,6 @@ function addParams(fieldKey, type, value, pageSize, currentPage, sortField) {
     distance: "distance",
   };
 
-  const sortFieldDBMapping = {
-    Дата: "date_",
-    Название: "name_",
-    Количество: "amount",
-    Расстояние: "distance",
-  };
-
   const typeForDB = type === "Содержит" ? "LIKE" : type;
 
   //filter params
@@ -32,7 +25,7 @@ function addParams(fieldKey, type, value, pageSize, currentPage, sortField) {
 
   //sort params
   if (sortField !== "DEFAULT"){
-    paramsArr.push({ field: "sortField", value: sortFieldDBMapping[sortField] });
+    paramsArr.push({ field: "sortField", value: fieldDBMapping[sortField] });
   }
   
   //pagination params

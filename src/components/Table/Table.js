@@ -1,21 +1,15 @@
 import { Table as StyledTable, TableHead, TableHeadCell, SortBtn} from "./styles.js";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortField } from "../../app/tableSlice";
-import { loadData } from "../../utils";
 
 function Table(props) {
 
   const table = useSelector(state => state.table.table);
-  const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
-  const filterType = useSelector((state) => state.table.filter.type);
-  const filterValue = useSelector((state) => state.table.filter.value);
-  const currentPage = useSelector((state) => state.table.currentPage);
-  const pageSize = useSelector((state) => state.table.pageSize);
+  const sort = useSelector((state) => state.table.sort);
   const dispatch = useDispatch();
 
   function handleSortBtnClick(field){
     dispatch(setSortField(field));
-    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage, field);
   }
   
   return (
@@ -23,18 +17,18 @@ function Table(props) {
       <TableHead>
         <tr>
           <TableHeadCell>Дата</TableHeadCell>
-          <TableHeadCell>
-            <SortBtn type="button" onClick={() => handleSortBtnClick('Название')}>
+          <TableHeadCell current={sort==='name'}>
+            <SortBtn type="button" onClick={() => handleSortBtnClick('name')}>
               Название
             </SortBtn>
           </TableHeadCell>
-          <TableHeadCell>
-            <SortBtn type="button" onClick={() => handleSortBtnClick('Количество')}>
+          <TableHeadCell current={sort==='amount'}>
+            <SortBtn type="button" onClick={() => handleSortBtnClick('amount')}>
               Кол-во
             </SortBtn>
           </TableHeadCell>
-          <TableHeadCell>
-            <SortBtn type="button" onClick={() => handleSortBtnClick('Расстояние')}>
+          <TableHeadCell current={sort==='distance'}>
+            <SortBtn type="button" onClick={() => handleSortBtnClick('distance')}>
               Расстояние
             </SortBtn>
           </TableHeadCell>

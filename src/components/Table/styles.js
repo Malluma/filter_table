@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 import {
-  colorMainLight, primaryColor
+  colorMainLight,
+  primaryColor,
+  primaryColorDark,
 } from "../../styles/variables.styles";
 
 export const Table = styled.table`
@@ -20,19 +22,21 @@ export const TableHead = styled.thead`
 export const SortBtn = styled.button`
   font-size: inherit;
   background: none;
+  background: none;
   width: 100%;
   border: none;
   color: white;
   font-weight: bold;
   text-align: start;
   cursor: pointer;
-  &:hover, &:focus{
+  &:hover,
+  &:focus {
     color: black;
     outline: none;
   }
 `;
 
 export const TableHeadCell = styled.td`
-  background: ${primaryColor};
+  background: ${(props) => (props.current ? primaryColorDark : primaryColor)};
   padding: 0.5rem;
 `;

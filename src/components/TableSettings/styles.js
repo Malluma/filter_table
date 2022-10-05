@@ -46,6 +46,7 @@ export const Input = styled.input`
   box-sizing: border-box;
   padding: 1vh 0.5vw;
   margin-bottom: 1.5vh;
+  width: ${(props) => (props.short ? '5vw': '')}; ;
 
   &:hover,
   &:focus {
@@ -65,15 +66,13 @@ export const Input = styled.input`
 export const FilterWrap = styled.div`
   display: flex;
   align-items: baseline;
-  margin-bottom: 2vh;
+  margin-bottom: 1vh;
 `;
 
 export const FilterLabel = styled.div`
   font-size: calc(9px + 1vmin);
   color: ${primaryColor};
-  font-weight: bold;
   margin-right: 1vw;
-  align-self: center;
 `;
 
 export const FilterField = styled.div`
@@ -101,8 +100,15 @@ export const TableCell = styled.td`
   padding: 1rem;
 `;
 
-export const Reference = styled.div`
-  font-size: 0.9rem;
-  color: ${colorMainLight};
-  margin-bottom: 2vh;
+export const PageSize = styled.div`
+  font-size: calc(9px + 1vmin);
+  margin-bottom: 1vh;
+`;
+
+export const Label = styled.label`
+  color: ${primaryColor};
+  margin-right: 1vw;
+  display: flex;
+  align-items: baseline;
+  gap: 1vw;
 `;

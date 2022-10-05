@@ -1,15 +1,10 @@
 import { PaginationWrap} from "./styles.js";
 import { useDispatch, useSelector } from "react-redux";
 import Button from '../common/Button/Button';
-import { loadData } from "../../utils";
 import { setCurrentPage } from "../../app/tableSlice.js";
 
 function Pagination(props) {
 
-  const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
-  const filterType = useSelector((state) => state.table.filter.type);
-  const filterValue = useSelector((state) => state.table.filter.value);
-  const sort = useSelector((state) => state.table.sort);
   const currentPage = useSelector((state) => state.table.currentPage);
   const totalRecordsNumber = useSelector((state) => state.table.totalRecordsNumber);
   const pageSize = useSelector((state) => state.table.pageSize);
@@ -18,10 +13,14 @@ function Pagination(props) {
 
   function handlePageBtnClick(e, pageNumber) {
     dispatch(setCurrentPage(pageNumber));
-    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, currentPage, sort);
+  }
+  let pagesNumber
+  if (pageSize){
+    pagesNumber = Math.ceil(totalRecordsNumber/pageSize);
+  }else {
+    pagesNumber = 0;
   }
   
-  let pagesNumber = Math.ceil(totalRecordsNumber/pageSize);
   const pages = [];
   for (let i=0; i<pagesNumber; i++){
     pages.push(i);

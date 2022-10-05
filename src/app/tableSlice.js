@@ -6,7 +6,7 @@ const initialState = {
   filter: { field: "DEFAULT", fieldKey: "", type: "=", value: "" },
   totalRecordsNumber: 13,
   pageSize: 5,
-  currentPage: 0
+  currentPage: 0,
 };
 
 const fieldMapping = {
@@ -27,9 +27,9 @@ export const tableSlice = createSlice({
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
       state.table = [];
-      const {data, totalCount} = action.payload;
+      const { data, totalCount } = action.payload;
       state.totalRecordsNumber = totalCount;
-     
+
       data.forEach((item) => {
         state.table.push({
           id: item.id,
@@ -52,9 +52,15 @@ export const tableSlice = createSlice({
       if (type === "field" && state.filter.field !== "DEFAULT") {
         state.filter.fieldKey = fieldMapping[value];
       }
+      state.currentPage = 0;
     },
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
+    },
+    setPageSize: (state, action) => {
+      let value = action.payload;
+      value = value.replace(/[^\d.]/g, '');
+      state.pageSize = Number(value);
     },
   },
 });
@@ -65,5 +71,6 @@ export const {
   setSortField,
   setFilter,
   setCurrentPage,
+  setPageSize,
 } = tableSlice.actions;
 export default tableSlice.reducer;

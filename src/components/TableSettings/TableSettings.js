@@ -1,17 +1,13 @@
-import { Input, Dropdown, Reference, FilterWrap, FilterField, FilterType, FilterValue, FilterLabel} from "./styles.js";
+import { Input, Label, Dropdown, FilterWrap, FilterField, FilterType, FilterValue, FilterLabel, PageSize} from "./styles.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter} from "../../app/tableSlice";
-import Button from '../common/Button/Button';
-import { loadData } from "../../utils";
-import { setCurrentPage } from "../../app/tableSlice.js";
+import { setPageSize } from "../../app/tableSlice.js";
 
 function TableSettings(props) {
 
   const filterField = useSelector((state) => state.table.filter.field);
-  const filterFieldKey = useSelector((state) => state.table.filter.fieldKey);
   const filterType = useSelector((state) => state.table.filter.type);
   const filterValue = useSelector((state) => state.table.filter.value);
-  const sort = useSelector((state) => state.table.sort);
   const pageSize = useSelector((state) => state.table.pageSize);
 
   const dispatch = useDispatch();
@@ -20,16 +16,12 @@ function TableSettings(props) {
     dispatch(setFilter({ type: type, value: e.target.value }));
   }
 
-  function handleFilterBtnClick(e, type) {
-    dispatch(setCurrentPage(0));
-    loadData(dispatch, filterFieldKey, filterType, filterValue, pageSize, 0, sort);
+  function handlePageSizeChange(e) {
+    dispatch(setPageSize(e.target.value));
   }
 
   return (
     <>
-      <Reference>
-        * Сортировка таблицы осуществляется по клику на заголовок колонки
-      </Reference>
       <FilterWrap>
         <FilterLabel>Фильтр:</FilterLabel>
         <FilterField>
@@ -67,8 +59,17 @@ function TableSettings(props) {
             onChange={(e) => handleFilterChange(e, "value")}
           ></Input>
         </FilterValue>
-        <Button onClick={handleFilterBtnClick}>Отфильтровать</Button>
       </FilterWrap> 
+      <PageSize>
+        <Label>Количество записей на странице:
+          <Input
+            type="text"
+            value={pageSize}
+            onChange={(e) => handlePageSizeChange(e)}       
+            short={true}
+          ></Input>
+        </Label>
+        </PageSize>
     </>
   );
 }
